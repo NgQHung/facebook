@@ -40,75 +40,96 @@ const Header = () => {
     const [searchEntered, setSearchEntered] = useState<Boolean>(false);
     const [menuActive, setMenuActive] = useState<String>('Home');
 
-    // const searchHandler = (value: Boolean) => {
-    //     setSearchEntered(value);
-    // };
-
     return (
-        <div className="fixed top-0 left-0 h-14 bg-white w-full">
-            <div className=" h-full flex flex-nowrap justify-between items-center">
-                <div className="header-left relative flex justify-between items-center h-10 pr-6">
+        <div className="fixed top-0 left-0 h-14 bg-white w-full shadow-lg z-[5]">
+            <div
+                className={` h-full flex flex-nowrap justify-between items-center ${
+                    searchEntered ? 'justify-end' : 'justify-between'
+                }`}>
+                <div className="header-left ">
                     {!searchEntered ? (
-                        <IconWrapper className="header-logo ml-4">
-                            <FacebookIcon />
-                        </IconWrapper>
-                    ) : (
-                        <>
-                            <IconWrapper className="bg-primary hover:bg-secondary cursor-pointer ml-4">
-                                <FontAwesomeIcon
-                                    onClick={() => setSearchEntered(false)}
-                                    icon={faArrowLeft}
-                                />
+                        <div className="relative h-10 flex justify-between items-center pr-6 space-x-2">
+                            <IconWrapper className="header-logo ml-4">
+                                <FacebookIcon />
                             </IconWrapper>
-                            <div className="absolute top-full left-0 w-full ">
-                                <div className="ml-4 ">
-                                    {data.map((item) => (
-                                        <div
-                                            key={item.id}
-                                            className="flex rounded-xl hover:bg-secondary cursor-pointer justify-between">
-                                            <div className="flex">
-                                                <div className="p-[6px] h-9 w-9 bg-secondary rounded-full">
+                            <SearchWrapper
+                                setSearchEntered={setSearchEntered}
+                                className={`header-search `}>
+                                <FontAwesomeIcon className="pl-3" icon={faMagnifyingGlass} />
+                                <input
+                                    placeholder="Tim kiem tren facebook"
+                                    className="bg-transparent outline-none p-2"
+                                />
+                            </SearchWrapper>
+                        </div>
+                    ) : (
+                        <div className="absolute h-max flex flex-col top-[calc(100%-56px+(56px-40px)/2)] shadow-lg ">
+                            <div className="flex justify-between items-center pr-6 space-x-2">
+                                <IconWrapper className=" h-10 bg-primary hover:bg-secondary cursor-pointer ml-2">
+                                    <FontAwesomeIcon
+                                        onClick={() => setSearchEntered(false)}
+                                        icon={faArrowLeft}
+                                    />
+                                </IconWrapper>
+                                <SearchWrapper
+                                    setSearchEntered={setSearchEntered}
+                                    className={`header-search `}>
+                                    <FontAwesomeIcon className="pl-3" icon={faMagnifyingGlass} />
+                                    <input
+                                        placeholder="Tim kiem tren facebook"
+                                        className="bg-transparent outline-none p-2"
+                                    />
+                                </SearchWrapper>
+                            </div>
+                            <div className=" w-full p-2">
+                                <div className="mb-2  flex flex-row justify-between">
+                                    <span className="text-base inline-block px-[6px] pt-3 pb-1 text-textPrimary">
+                                        <span>Recent</span>
+                                    </span>
+                                    <span className="text-base inline-block px-[6px] p-2 rounded-md text-textSecondary cursor-pointer hover:bg-secondary ">
+                                        <span>Edit</span>
+                                    </span>
+                                </div>
+                                {data.map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className="flex rounded-xl hover:bg-secondary cursor-pointer justify-between items-center">
+                                        <div className="flex">
+                                            <div className="p-[6px] ">
+                                                <div className="h-9 w-9  bg-secondary rounded-full">
                                                     {/* <img
-                                                        className="h-full w-auto object-fill"
-                                                        src={item.avatar}
-                                                        alt={item.title}
-                                                    /> */}
+                                                                className="h-full w-auto object-fill"
+                                                                src={item.avatar}
+                                                                alt={item.title}
+                                                            /> */}
                                                 </div>
-                                                <div className="flex flex-col">
-                                                    <span className="inline-block p-[6px]">
-                                                        {item.title}
-                                                    </span>
+                                            </div>
+                                            <div className="flex flex-col justify-center">
+                                                <span className="inline-block p-[6px]">
+                                                    {item.title}
+                                                </span>
+                                                {item.notification.length !== 0 ? (
                                                     <span className="inline-block p-[6px]">
                                                         {item.notification.map((it) => it)}
                                                     </span>
-                                                </div>
-                                            </div>
-                                            <div className="p-[6px] h-8 w-8">
-                                                <FontAwesomeIcon
-                                                    className="h-full w-auto object-fill"
-                                                    icon={faXmark}
-                                                />
+                                                ) : null}
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
+                                        <div className="p-[6px] h-8 w-8">
+                                            <FontAwesomeIcon
+                                                className="h-full w-auto object-fill"
+                                                icon={faXmark}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        </>
+                        </div>
                     )}
-                    {/* <SearchContainer setSearchEntered={setSearchEntered}> */}
-                    <SearchWrapper setSearchEntered={setSearchEntered} className={`header-search `}>
-                        {!searchEntered ? (
-                            <FontAwesomeIcon className="pl-3" icon={faMagnifyingGlass} />
-                        ) : null}
-                        <input
-                            placeholder="Tim kiem tren facebook"
-                            className="bg-transparent outline-none p-2"
-                        />
-                    </SearchWrapper>
-                    {/* </SearchContainer> */}
                 </div>
 
-                <div className="header-right flex justify-between items-center h-10 ">
+                <div
+                    className={`header-right flex justify-between items-center h-10 space-x-2 pr-4 pl-1`}>
                     <IconWrapper className="menu">
                         <FontAwesomeIcon className="h-auto w-full object-fill" icon={faBars} />
                     </IconWrapper>
@@ -146,7 +167,7 @@ const Header = () => {
 
 const IconWrapper = (props: IIconWrapper) => (
     <div
-        className={` h-full w-10 rounded-full bg-secondary flex justify-center items-center
+        className={` cursor-pointer hover:bg-secondaryHover h-full w-10 rounded-full bg-secondary flex justify-center items-center
         ${props.className}    `}>
         <div className="w-5 h-5 flex justify-center items-center">{props.children}</div>
     </div>

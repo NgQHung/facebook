@@ -2,49 +2,49 @@ export interface IDataDropdown {
     id: number;
     avatar: string;
     title: string;
-    notification: [''];
+    notification: string[];
 }
 export const data: IDataDropdown[] = [
     {
         id: 1,
         avatar: '',
         title: 'hung',
-        notification: [''],
+        notification: [],
     },
     {
         id: 2,
         avatar: '',
         title: 'anh',
-        notification: [''],
+        notification: [],
     },
     {
         id: 3,
         avatar: '',
         title: 'hung',
-        notification: [''],
+        notification: [],
     },
     {
         id: 4,
         avatar: '',
         title: 'anh',
-        notification: [''],
+        notification: [],
     },
     {
         id: 5,
         avatar: '',
         title: 'hung',
-        notification: [''],
+        notification: [],
     },
     {
         id: 6,
         avatar: '',
         title: 'anh',
-        notification: [''],
+        notification: [],
     },
     {
         id: 7,
         avatar: '',
         title: 'hung',
-        notification: [''],
+        notification: [],
     },
 ];
