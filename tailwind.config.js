@@ -4,6 +4,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                facebook: '#0866ff',
                 primary: '#ffff',
                 secondary: '#f0f2f5',
                 secondaryHover: '#e4e6eb',
