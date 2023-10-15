@@ -48,7 +48,7 @@ const Header = () => {
                 }`}>
                 <div className="header-left ">
                     {!searchEntered ? (
-                        <div className="relative h-10 flex justify-between items-center pr-6 space-x-2">
+                        <div className="relative h-10 flex justify-between items-center pr-4 space-x-2">
                             <IconWrapper className="header-logo ml-4">
                                 <FacebookIcon />
                             </IconWrapper>
@@ -63,7 +63,7 @@ const Header = () => {
                             </SearchWrapper>
                         </div>
                     ) : (
-                        <div className="absolute h-max flex flex-col top-[calc(100%-56px+(56px-40px)/2)] shadow-lg ">
+                        <div className="absolute h-max flex flex-col top-[calc(100%-56px+(56px-40px)/2)] shadow-lg z-[5] bg-primary">
                             <div className="flex justify-between items-center pr-6 space-x-2">
                                 <IconWrapper className=" h-10 bg-primary hover:bg-secondary cursor-pointer ml-2">
                                     <FontAwesomeIcon
@@ -144,7 +144,10 @@ const Header = () => {
                     </IconWrapper>
                 </div>
             </div>
-            <div className="absolute top-0 right-1/2 translate-x-[50%] header-mid h-full flex justify-between items-center text-center">
+            <div
+                className="absolute top-0 right-1/2 translate-x-[50%] header-mid h-full flex justify-between items-center text-center 
+            w-[calc(100%-280px*2)] px-8 
+            ">
                 <IconsMiddleWrapper className="home ">
                     <FontAwesomeIcon className="h-auto w-full object-fill" icon={faHouse} />
                 </IconsMiddleWrapper>
@@ -174,8 +177,8 @@ const IconWrapper = (props: IIconWrapper) => (
 );
 
 const IconsMiddleWrapper = (props: IIconWrapper) => (
-    <div className={`${props.className} h-full  w-[110px] min-w-[50px]`}>
-        <div className="mx-[2px] my-[4px] h-full rounded-lg flex justify-center items-center hover:bg-secondary cursor-pointer">
+    <div className={`${props.className} h-full   w-[110px] min-w-[50px] py-1`}>
+        <div className="mx-[2px]  h-full rounded-lg flex justify-center items-center hover:bg-secondary cursor-pointer">
             <div className="h-6 w-6 ">{props.children}</div>
         </div>
     </div>

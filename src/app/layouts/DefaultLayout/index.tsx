@@ -10,7 +10,7 @@ interface IDefaultLayout {
 
 const DefaultLayout: React.FC<IDefaultLayout> = ({children, className}) => {
     return (
-        <div className={`relative h-screen w-screen  ${className}`}>
+        <div className={`relative h-full w-full  ${className}`}>
             <Header />
             <SideBar />
             <SideBarRight />
