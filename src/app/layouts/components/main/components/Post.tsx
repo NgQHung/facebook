@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PostLayout from '../../../PostLayout';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -10,6 +10,9 @@ import {
     faThumbsUp,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import {Link} from 'react-router-dom';
+import DetailUserOnHover from './DetailUserOnHover';
+import {defaultPostData} from './data/defaultPostData';
 
 interface IPost {
     item: {
@@ -24,6 +27,33 @@ interface IPost {
 }
 
 const Post = (props: IPost) => {
+    const [isHover, setIsHover] = useState(false);
+    const [idHovered, setIdHovered] = useState<number | null>(null);
+    const [dataOnHover, setDataOnHover] = useState<{
+        id: number;
+        avatar: string;
+        name: string;
+    } | null>(null);
+
+    const showDetailHandler = (id: number | null) => {
+        setIdHovered(id);
+        setIsHover(true);
+    };
+    const closeDetailHandler = () => {
+        setIsHover(false);
+        setDataOnHover(null);
+    };
+
+    useEffect(() => {
+        if (!isHover) return;
+        const dataFound = defaultPostData.find((item) => item.id === idHovered);
+        if (dataFound) {
+            let dataToSet = {...dataFound};
+            const {id, avatar, name} = dataToSet;
+            setDataOnHover({id: id, avatar: avatar, name: name});
+        }
+    }, [isHover, idHovered]);
+
     return (
         <PostLayout>
             <div className="flex mb-2">
@@ -38,7 +68,18 @@ const Post = (props: IPost) => {
                 {/* name time option */}
                 <div className="grow flex justify-between">
                     <div className="flex flex-col items-start justify-center grow  ">
-                        <strong className="text-sm w-full">{props.item.name}</strong>
+                        {/* <Link to="/"> */}
+                        <a
+                            onMouseEnter={() => showDetailHandler(props.item.id)}
+                            onMouseLeave={closeDetailHandler}
+                            className="hover:underline relative"
+                            href="/">
+                            <strong className="text-sm w-full">{props.item.name}</strong>
+                            {dataOnHover && isHover && idHovered === props.item.id ? (
+                                <DetailUserOnHover dataOnHover={dataOnHover} />
+                            ) : null}
+                        </a>
+                        {/* </Link> */}
                         <div className="text-xs text-textPost w-full">
                             <span>{props.item.time}</span>
                             <span> · </span>
@@ -58,7 +99,7 @@ const Post = (props: IPost) => {
             {/* caption */}
             <p className="pt-1 pb-2">{props.item.caption}</p>
             {/* image */}
-            <div className="w-[calc(100%+16px*2)] h-auto relative left-0 ml-[-16px]">
+            <div className="w-[calc(100%+16px*2)] max-h-[500px] overflow-hidden relative left-0 ml-[-16px] flex justify-center items-center">
                 <img className="h-full w-full object-cover" src={props.item.imagePost} alt="post" />
             </div>
             {/* likes */}

@@ -25,23 +25,13 @@ interface ISearchWrapper {
     className?: string;
     setSearchEntered: (value: Boolean) => void;
 }
-interface ISearchContainer {
-    children: ReactNode;
-    // className?: string;
-    setSearchEntered: (value: Boolean) => void;
-}
-interface ISearchDropdownWrapper {
-    // children?: ReactNode;
-    // className?: string;
-    // setSearchEntered?: (value: Boolean) => void;
-}
 
 const Header = () => {
     const [searchEntered, setSearchEntered] = useState<Boolean>(false);
     const [menuActive, setMenuActive] = useState<String>('Home');
 
     return (
-        <div className="fixed top-0 left-0 h-14 bg-white w-full shadow-lg z-[5]">
+        <div className="fixed top-0 left-0 h-14 bg-white w-full shadow-lg z-[6]">
             <div
                 className={` h-full flex flex-nowrap justify-between items-center ${
                     searchEntered ? 'justify-end' : 'justify-between'
@@ -177,19 +167,10 @@ const IconWrapper = (props: IIconWrapper) => (
 );
 
 const IconsMiddleWrapper = (props: IIconWrapper) => (
-    <div className={`${props.className} h-full   w-[110px] min-w-[50px] py-1`}>
+    <div className={`${props.className} h-full flex-1  w-[110px] min-w-[50px] py-1`}>
         <div className="mx-[2px]  h-full rounded-lg flex justify-center items-center hover:bg-secondary cursor-pointer">
             <div className="h-6 w-6 ">{props.children}</div>
         </div>
-    </div>
-);
-const SearchContainer = (props: ISearchContainer) => (
-    <div className="h-full w-[240px] bg-secondary">
-        <SearchWrapper setSearchEntered={props.setSearchEntered}>
-            {props.children}
-            <SearchDropdownWrapper />
-            {/* </SearchDropdownWrapper> */}
-        </SearchWrapper>
     </div>
 );
 const SearchWrapper = (props: ISearchWrapper) => (
@@ -200,14 +181,6 @@ const SearchWrapper = (props: ISearchWrapper) => (
             <div className="h-full w-full flex items-center justify-center">{props.children}</div>
         </div>
     </>
-);
-
-const SearchDropdownWrapper = (props: ISearchDropdownWrapper) => (
-    <div>
-        {data.map((dropdown) => {
-            return <DropdownItemWrapper dropdown={dropdown} />;
-        })}
-    </div>
 );
 
 interface IDropdownItemWrapper {
