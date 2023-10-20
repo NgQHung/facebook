@@ -12,7 +12,7 @@ const dataShowHandler = (data: {id: number; image: string; title: string}[]) => 
 
 const SideBarRight = () => {
     return (
-        <div className="sticky w-[280px] float-right  top-0 bg-secondary z-[4] scroll bottom-0 right-0">
+        <div className="fixed w-[280px] float-right  top-0 bg-secondary z-[4] scroll bottom-0 right-0">
             <div className="flex flex-col mt-4 pl-4 h-full">
                 {defaultData.map((item, key) => {
                     if (item.title === 'Birthday') {

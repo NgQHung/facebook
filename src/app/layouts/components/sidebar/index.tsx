@@ -9,7 +9,7 @@ const dataShowHandler = (data: {id: number; image: string; title: string}[]) => 
 
 const SideBar = () => {
     return (
-        <div className="sticky w-[280px] float-left  top-0 bg-secondary z-[4] scroll left-0 bottom-0">
+        <div className="fixed w-[280px] float-left  top-0 bg-secondary z-[4] scroll left-0 bottom-0">
             <div className="flex flex-col mt-4 pl-4 h-full ">
                 {defaultData.map((item, key) => {
                     // const slicedDefaultData = '';
