@@ -1,7 +1,7 @@
 import {faCaretRight, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import React, {Fragment} from 'react';
-import {defaultData} from '../data';
+import {defaultDataStory} from './data/defaultDataStory';
 
 const Story = () => {
     return (
@@ -29,7 +29,7 @@ const Story = () => {
                         <span className="inline-block pt-3 px-3 ">Create story</span>
                     </div>
                 </div>
-                {defaultData.map((item) => (
+                {defaultDataStory.map((item) => (
                     <div
                         key={item.id}
                         className="w-[140px] cursor-pointer h-[250px] shrink-0 rounded-xl py-2">

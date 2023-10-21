@@ -1,48 +1,50 @@
+import {v4 as uuidv4} from 'uuid';
+
 export interface IDataDropdown {
-    id: number;
+    id: string;
     avatar: string;
     title: string;
     notification: string[];
 }
 export const data: IDataDropdown[] = [
     {
-        id: 1,
+        id: uuidv4(),
         avatar: '',
         title: 'hung',
         notification: [],
     },
     {
-        id: 2,
+        id: uuidv4(),
         avatar: '',
         title: 'anh',
         notification: [],
     },
     {
-        id: 3,
+        id: uuidv4(),
         avatar: '',
         title: 'hung',
         notification: [],
     },
     {
-        id: 4,
+        id: uuidv4(),
         avatar: '',
         title: 'anh',
         notification: [],
     },
     {
-        id: 5,
+        id: uuidv4(),
         avatar: '',
         title: 'hung',
         notification: [],
     },
     {
-        id: 6,
+        id: uuidv4(),
         avatar: '',
         title: 'anh',
         notification: [],
     },
     {
-        id: 7,
+        id: uuidv4(),
         avatar: '',
         title: 'hung',
         notification: [],

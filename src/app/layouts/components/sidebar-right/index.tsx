@@ -3,7 +3,7 @@ import {defaultData} from './data';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCakeCandles, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
-const dataShowHandler = (data: {id: number; image: string; title: string}[]) => {
+const dataShowHandler = (data: {id: string; userId: string; image: string; title: string}[]) => {
     return data.slice(0, 6);
 };
 // const dataBirthdayHandler = (data: {id: number; image: string; title: string}[]) => {
@@ -17,7 +17,7 @@ const SideBarRight = () => {
                 {defaultData.map((item, key) => {
                     if (item.title === 'Birthday') {
                         return (
-                            <div className="mb-2">
+                            <div key={item.title + '/' + key} className="mb-2">
                                 <div className="pb-2 text-base flex justify-between items-center pl-2 mr-2">
                                     <span className="text-[#65676b] font-semibold inline-block ">
                                         {item.title}
@@ -41,7 +41,9 @@ const SideBarRight = () => {
                     } else {
                         return (
                             <>
-                                <div className="mb-2 text-base flex justify-between group items-center pt-5 pl-2 mr-2 border-t-2">
+                                <div
+                                    key={item.title + '+' + key}
+                                    className="mb-2 text-base flex justify-between group items-center pt-5 pl-2 mr-2 border-t-2">
                                     <span className="text-[#65676b] font-semibold inline-block ">
                                         {item.title}
                                     </span>
@@ -49,8 +51,10 @@ const SideBarRight = () => {
                                         Edit
                                     </span>
                                 </div>
-                                {dataShowHandler(item.data).map((itm) => (
-                                    <div className="px-2 flex hover:bg-secondaryHover items-center cursor-pointer">
+                                {dataShowHandler(item.data).map((itm, key) => (
+                                    <div
+                                        key={item.title + '/' + key}
+                                        className="px-2 flex hover:bg-secondaryHover items-center cursor-pointer">
                                         <div className="h-9 w-9 bg-primary rounded-md"></div>
                                         <div className="text-base p-3 flex items-center justify-center">
                                             <span>{itm.title}</span>

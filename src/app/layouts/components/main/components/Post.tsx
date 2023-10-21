@@ -10,32 +10,42 @@ import {
     faThumbsUp,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import {Link} from 'react-router-dom';
 import DetailUserOnHover from './DetailUserOnHover';
 import {defaultPostData} from './data/defaultPostData';
 
 interface IPost {
     item: {
-        id: number;
+        id: string;
+        userId: string;
         avatar: string;
         name: string;
         time: string;
         caption: string;
         imagePost: string;
-        numberLiked: {id: number; name: string}[];
+        numberLiked: {id: string; name: string}[];
+        comment: {
+            id: string;
+            name: string;
+            avatar: string;
+            userId: string;
+            taggedName?: {id: string; userId: string}[];
+            comment: string;
+        }[];
     };
 }
 
 const Post = (props: IPost) => {
     const [isHover, setIsHover] = useState(false);
-    const [idHovered, setIdHovered] = useState<number | null>(null);
+    const [userIdHovered, setUserIdHovered] = useState<string | null>(null);
+    const [idHovered, setIdHovered] = useState<string | null>(null);
     const [dataOnHover, setDataOnHover] = useState<{
-        id: number;
+        id: string;
         avatar: string;
         name: string;
     } | null>(null);
 
-    const showDetailHandler = (id: number | null) => {
+    const showDetailHandler = (userId: string | null, id: string | null) => {
+        setUserIdHovered(userId);
         setIdHovered(id);
         setIsHover(true);
     };
@@ -46,13 +56,13 @@ const Post = (props: IPost) => {
 
     useEffect(() => {
         if (!isHover) return;
-        const dataFound = defaultPostData.find((item) => item.id === idHovered);
+        const dataFound = defaultPostData.find((item) => item.userId === userIdHovered);
         if (dataFound) {
             let dataToSet = {...dataFound};
             const {id, avatar, name} = dataToSet;
             setDataOnHover({id: id, avatar: avatar, name: name});
         }
-    }, [isHover, idHovered]);
+    }, [isHover, userIdHovered]);
 
     return (
         <PostLayout>
@@ -70,7 +80,7 @@ const Post = (props: IPost) => {
                     <div className="flex flex-col items-start justify-center grow  ">
                         {/* <Link to="/"> */}
                         <a
-                            onMouseEnter={() => showDetailHandler(props.item.id)}
+                            onMouseEnter={() => showDetailHandler(props.item.userId, props.item.id)}
                             onMouseLeave={closeDetailHandler}
                             className="hover:underline relative"
                             href="/">
@@ -140,8 +150,78 @@ const Post = (props: IPost) => {
                     </div>
                 </div>
             </div>
+            <div className="grow py-2 flex items-center space-x-2">
+                <div className="h-8 w-8 shrink-0">
+                    <img
+                        className="w-full h-full rounded-full object-cover"
+                        src={props.item.avatar}
+                        alt={props.item.name}
+                    />
+                </div>
+                <input
+                    className="text-base w-full  py-2 px-3 rounded-3xl outline-none bg-secondary "
+                    type="text"
+                    placeholder="What's on your mind, Hung?"
+                />
+            </div>
+            <div className="w-full py-2 flex items-center space-x-2">
+                <div className="h-8 w-8 shrink-0">
+                    <img
+                        className="w-full h-full rounded-full object-cover"
+                        src={props.item.comment[0].avatar}
+                        alt={props.item.comment[0].name}
+                    />
+                </div>
+                <div className="  text-base justify-self-start w-full max-w-content  py-2 px-3 rounded-3xl outline-none bg-secondary ">
+                    <a
+                        href="/"
+                        onMouseEnter={() =>
+                            showDetailHandler(
+                                props.item.comment[0].userId,
+                                props.item.comment[0].id
+                            )
+                        }
+                        onMouseLeave={closeDetailHandler}
+                        className="hover:underline relative text-sm">
+                        <strong>{props.item.comment[0].name}</strong>
+                        {dataOnHover && isHover && idHovered === props.item.comment[0].id ? (
+                            <DetailUserOnHover dataOnHover={dataOnHover} />
+                        ) : null}
+                    </a>
+                    <p>
+                        {props.item.comment[0].taggedName &&
+                        props.item.comment[0].taggedName.length > 0 ? (
+                            <>
+                                {props.item.comment[0].taggedName.map((itm) => (
+                                    <a
+                                        href="/"
+                                        onMouseEnter={() => showDetailHandler(itm.userId, itm.id)}
+                                        onMouseLeave={closeDetailHandler}
+                                        className="hover:underline relative text-base">
+                                        <strong>{getNameUserByUserId(itm.userId)} </strong>
+                                        {dataOnHover && isHover && idHovered === itm.id ? (
+                                            <DetailUserOnHover dataOnHover={dataOnHover} />
+                                        ) : null}
+                                    </a>
+                                ))}
+                            </>
+                        ) : null}
+                        <span>{props.item.comment[0].comment}</span>
+                    </p>
+                </div>
+            </div>
         </PostLayout>
     );
 };
 
 export default Post;
+
+function getNameUserByUserId(userId: string) {
+    // if()
+    const getObjUser = defaultPostData.find((item) => item.userId === userId);
+    if (getObjUser) {
+        return getObjUser.name;
+    }
+    console.log('something went wrong, userId is invalid');
+    return;
+}

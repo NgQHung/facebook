@@ -24,6 +24,9 @@ module.exports = {
                     75: alpha('hotpink', 0.75), // => .bg-brand-75
                 },
             },
+            maxWidth: {
+                content: 'max-content',
+            },
         },
     },
     plugins: [],

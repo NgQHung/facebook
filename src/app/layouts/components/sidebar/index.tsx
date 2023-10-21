@@ -3,7 +3,7 @@ import {defaultData} from './data';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
-const dataShowHandler = (data: {id: number; image: string; title: string}[]) => {
+const dataShowHandler = (data: {id: string; image: string; title: string}[]) => {
     return data.slice(0, 6);
 };
 
@@ -15,9 +15,11 @@ const SideBar = () => {
                     // const slicedDefaultData = '';
                     if (item.title === 'first') {
                         return (
-                            <div className="mb-2">
-                                {dataShowHandler(item.data).map((itm) => (
-                                    <div className="px-2 flex hover:bg-secondaryHover  items-center cursor-pointer">
+                            <div key={key} className="mb-2">
+                                {dataShowHandler(item.data).map((itm, key) => (
+                                    <div
+                                        key={itm.title + '/' + key}
+                                        className="px-2 flex hover:bg-secondaryHover  items-center cursor-pointer">
                                         <div className="h-9 w-9 bg-primary rounded-full"></div>
                                         <div className="text-base p-3 flex items-center justify-center">
                                             <span>{itm.title}</span>
@@ -40,7 +42,9 @@ const SideBar = () => {
                     } else {
                         return (
                             <>
-                                <div className="pb-2 text-base flex justify-between group items-center pt-5 pl-2 mr-2 border-t-2">
+                                <div
+                                    key={item.title + '/' + key}
+                                    className="pb-2 text-base flex justify-between group items-center pt-5 pl-2 mr-2 border-t-2">
                                     <span className="text-[#65676b] font-semibold inline-block ">
                                         {item.title}
                                     </span>
@@ -48,8 +52,10 @@ const SideBar = () => {
                                         Edit
                                     </span>
                                 </div>
-                                {dataShowHandler(item.data).map((itm) => (
-                                    <div className="px-2 flex hover:bg-secondaryHover items-center cursor-pointer">
+                                {dataShowHandler(item.data).map((itm, key) => (
+                                    <div
+                                        key={itm + '+' + key}
+                                        className="px-2 flex hover:bg-secondaryHover items-center cursor-pointer">
                                         <div className="h-9 w-9 bg-primary rounded-md"></div>
                                         <div className="text-base p-3 flex items-center justify-center">
                                             <span>{itm.title}</span>

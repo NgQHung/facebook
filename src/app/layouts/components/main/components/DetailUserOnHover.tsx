@@ -5,7 +5,7 @@ import {MessengerIcon} from '../../../../components/UI/Icons';
 
 interface IDetailUserOnHover {
     dataOnHover: {
-        id: number;
+        id: string;
         name: string;
         avatar: string;
     };
